@@ -35,7 +35,7 @@ const cartSlice = createSlice({
     removeItemToCart(state, action) {
       const { itemIndex } = action.payload;
       const selectedItem = state.items.find(item => item.id === itemIndex);
-
+      
       if (selectedItem.quantity === 0) return;
 
       state.totalCount -= 1;
