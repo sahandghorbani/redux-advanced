@@ -1,16 +1,24 @@
-import Cart from "./components/Cart/Cart";
-import Layout from "./components/Layout/Layout";
-import Products from "./components/Shop/Products";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendPostRequest } from './store';
 
-function App() {
-  const { cartIsVisible } = useSelector((state) => state.ui);
+const App = () => {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.api);
+
+  const handleClick = () => {
+    const requestData = { /* payload data */ };
+    dispatch(sendPostRequest(requestData));
+  };
+
   return (
-    <Layout>
-      {cartIsVisible && <Cart />}
-      <Products />
-    </Layout>
+    <div>
+      <button onClick={handleClick} disabled={loading}>
+        {loading ? 'Sending...' : 'Send POST Request'}
+      </button>
+      {error && <div>Error: {error}</div>}
+    </div>
   );
-}
+};
 
 export default App;
